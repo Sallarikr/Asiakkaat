@@ -1,0 +1,27 @@
+table, th, td {
+	border: 1px solid;
+	 margin-left: auto; 
+  	margin-right: auto;
+}
+
+th{
+	text-align: left;
+	background-color: #d67eb5;
+	color: white;
+}
+
+th, td{
+	padding: 10px;
+}
+
+headers{
+	background-color: black;
+}
+
+table{
+	width: 50%;
+}
+
+tr:nth-child(even) {
+	background-color: #f5d6e9;
+}

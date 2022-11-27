@@ -26,7 +26,7 @@ public class Dao {
 			con = DriverManager.getConnection(url);
 			System.out.println("Yhteys avattu.");
 		} catch (Exception e) {
-			System.out.println("Yhteyden avaus ep�onnistui.");
+			System.out.println("Yhteyden avaus epäonnistui.");
 			e.printStackTrace();
 		}
 		return con;
@@ -117,5 +117,42 @@ public ArrayList<Asiakas> getAllItems(String searchStr) {
 		sulje();
 	}
 	return asiakkaat;
+	}
+
+public boolean addItem(Asiakas asiakas) {
+	boolean paluuArvo = true;
+	sql = "INSERT INTO asiakkaat(etunimi, sukunimi, puhelin, sposti)VALUES(?, ?, ?, ?)";
+	try {
+		con = yhdista();
+		stmtPrep = con.prepareStatement(sql);
+		stmtPrep.setString(1, asiakas.getEtunimi());
+		stmtPrep.setString(2, asiakas.getSukunimi());
+		stmtPrep.setString(3, asiakas.getPuhelin());
+		stmtPrep.setString(4, asiakas.getSposti());
+		stmtPrep.executeUpdate();
+	}catch (Exception e) {
+		paluuArvo=false;
+		e.printStackTrace();
+	}finally {
+		sulje();
+	}
+	return paluuArvo;
+	}
+
+public boolean removeItem(int asiakas_id) {
+	boolean paluuArvo = true;
+	sql = "DELETE FROM asiakkaat WHERE asiakas_id=?";
+	try {
+		con = yhdista();
+		stmtPrep = con.prepareStatement(sql);
+		stmtPrep.setInt(1, asiakas_id);
+		stmtPrep.executeUpdate();
+	}catch (Exception e) {
+		e.printStackTrace();
+		paluuArvo = false;
+	}finally{
+		sulje();
+	}
+	return paluuArvo;
 	}
 }
